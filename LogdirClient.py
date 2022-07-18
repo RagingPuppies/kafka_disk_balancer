@@ -11,7 +11,7 @@ class LogdirClient:
     self.bootstrap_servers = bootstrap_servers
     self.kafka_path = kafka_path
 
-  def get_logdir_command(self, broker):
+  def get_logdir_command(self, broker: str) -> str:
 
     broker_cmd = "" if not broker else "--broker-list {broker}".format(broker=broker)
     return "{path}/kafka-log-dirs.sh --bootstrap-server {servers} --describe {broker_cmd}".format(
@@ -20,7 +20,7 @@ class LogdirClient:
       broker_cmd=broker_cmd
       )
 
-  def run_command_with_output(self, cmd: str):
+  def run_command_with_output(self, cmd: str) -> str:
     
     p = Popen(split(cmd), stdout=PIPE, stdin=PIPE, shell=False, stderr=PIPE, preexec_fn=os.setpgrp)
     output, _ = p.communicate(None)
@@ -31,7 +31,7 @@ class LogdirClient:
 
     return output.decode("utf-8")
 
-  def get_kafka_logdirs(self, broker = "") -> object:
+  def get_kafka_logdirs(self, broker: str = "") -> object:
 
     logdir_cmd = self.get_logdir_command(broker)
     result = self.run_command_with_output(logdir_cmd)
