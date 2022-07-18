@@ -1,6 +1,6 @@
 # Smart Kafka Disk Balancer
 ## Implementation
-We would like to have a script that will to the following:
+We would like to have a script that will do the following:
 1. Get all Logdirs on a specific kafka broker.
 2. Wait 60 Seconds.
 3. Get all Logdirs on the same specific kafka broker.
